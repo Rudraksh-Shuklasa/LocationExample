@@ -17,6 +17,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import com.google.android.gms.location.*
+import com.google.android.gms.tasks.Task
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -117,6 +118,8 @@ class MainActivity : AppCompatActivity() {
             }
 
             mFusedLocationProviderClient!!.requestLocationUpdates(mLocationRequest,mLocationCallback, Looper.myLooper())
+
+
         }
 
 
@@ -139,3 +142,4 @@ class MainActivity : AppCompatActivity() {
         txtLong.text = "LONGITUDE : " + mLastLocation.longitude
     }
 }
+
