@@ -1,6 +1,7 @@
 package com.example.locationexample
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -11,6 +12,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
+import android.support.annotation.RequiresApi
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AlertDialog
 import android.widget.Button
@@ -34,6 +36,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var txtLat: TextView
     lateinit var txtLong: TextView
     lateinit var txtTime: TextView
+    @RequiresApi(Build.VERSION_CODES.O)
+    @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -44,6 +48,10 @@ class MainActivity : AppCompatActivity() {
         txtLong = findViewById(R.id.txtLong);
         txtTime = findViewById(R.id.txtTime);
         mLocationRequest = LocationRequest()
+
+        val intent = Intent(this@MainActivity, GetLocationServices::class.java)
+        intent.setAction("ACTION_START_FOREGROUND_SERVICE")
+        startService(intent)
 
         val locationManager =getSystemService(Context.LOCATION_SERVICE) as LocationManager
         if(locationManager.isProviderEnabled(Context.LOCATION_SERVICE)){
